@@ -23,6 +23,12 @@ header{
     min-width: 150px;
     align-items: center;
     margin: 5px;
+    border: 2px solid transparent;
+}
+
+.card:hover {
+    border: 2px solid black;
+    transform: scale(1.075);
 }
 
 .red{

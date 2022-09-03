@@ -62,3 +62,7 @@ function renderCard(){
         canvas.innerHTML += htmlCard(id,name,type);        
     }
 }
+
+function singleView(id){
+    
+}
