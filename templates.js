@@ -1,0 +1,1 @@
+function htmlCard(id, mame, type, img)
