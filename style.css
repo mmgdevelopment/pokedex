@@ -1,4 +1,57 @@
+body{
+    margin: 0;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
+}
+
+
 #canvas {
     display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
+    margin: 25px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    align-items: center;
+    margin: 5px;
+}
+
+.red{
+    background-color: lightsalmon;
+}
+.green {
+    background-color: lightgreen;
+}
+.blue {
+    background-color: lightblue;
+}
+.white {
+    background-color: beige;
+}
+.brown {
+    background-color: lightgoldenrodyellow;
+}
+.yellow {
+    background-color: lightyellow;
+}
+.purple {
+    background-color: lightpink;
+}
+.pink {
+    background-color: pink;
+}
+.gray {
+    background-color: lightgray;
+}
+.black {
+    background-color: rgba(0, 0, 0, 0.8)
 }

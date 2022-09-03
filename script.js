@@ -1,14 +1,26 @@
 const URL = 'https://pokeapi.co/api/v2/pokemon-species/';
 let pokemons = [];
 let rawPokemons = [];
+let fetchingData;
 
 fetchData();
+window.addEventListener("scroll", checkScrollToBottom);
+
+
+function checkScrollToBottom(){
+    let clientHeight = document.documentElement.clientHeight;
+    let scrollHeight = document.documentElement.scrollHeight;
+    let scrollY = window.scrollY;
+    if ((Math.floor(scrollY + 450)) >= (scrollHeight - clientHeight) && fetchingData == false){
+        fetchData();
+        fetchingData;
+    }
+}
 
 async function fetchData(){
-    
+    fetchingData = true;
     let index = pokemons.length +1
-
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 45; i++) {
         let result = await fetch(URL + index);
         index ++;
         resultAsJson = await result.json();
@@ -16,6 +28,7 @@ async function fetchData(){
     }
     saveDatatLocal();
     rawPokemons = [];
+    fetchingData = false;
 };
 
 function init(){
@@ -28,7 +41,6 @@ function saveDatatLocal(){
         const name = result.names[5].name;
         const id = result.id;
         const type = result.color.name;
-
         pokemons.push(
             {
                 id: id,
