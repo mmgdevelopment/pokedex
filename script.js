@@ -5,13 +5,17 @@ let rawPokemons = [];
 fetchData();
 
 async function fetchData(){
+    
+    let index = pokemons.length +1
 
-    for (let i = 1; i < 15; i++) {
-        let result = await fetch(URL + i);
+    for (let i = 0; i < 15; i++) {
+        let result = await fetch(URL + index);
+        index ++;
         resultAsJson = await result.json();
         rawPokemons.push(resultAsJson);
     }
-
+    saveDatatLocal();
+    rawPokemons = [];
 };
 
 function init(){
@@ -19,16 +23,17 @@ function init(){
 }
 
 function saveDatatLocal(){
-    for (let i = 0; i < resultAsJson.results.length; i++) {
-        const result = resultAsJson.results[i];
-        const name = result.name;
-        const id = result.url.split('pokemon/').pop().replace('/','');
+    for (let i = 0; i < rawPokemons.length; i++) {
+        const result = rawPokemons[i];
+        const name = result.names[5].name;
+        const id = result.id;
+        const type = result.color.name;
 
         pokemons.push(
             {
                 id: id,
                 name: name,
-                type: 'red'
+                type: type
             }
         )
     }
