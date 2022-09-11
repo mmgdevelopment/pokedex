@@ -7,22 +7,22 @@ fetchData();
 window.addEventListener("scroll", checkScrollToBottom);
 
 
-function checkScrollToBottom(){
+function checkScrollToBottom() {
     let clientHeight = document.documentElement.clientHeight;
     let scrollHeight = document.documentElement.scrollHeight;
     let scrollY = window.scrollY;
-    if ((Math.floor(scrollY + 450)) >= (scrollHeight - clientHeight) && fetchingData == false){
+    if ((Math.floor(scrollY + 450)) >= (scrollHeight - clientHeight) && fetchingData == false) {
         fetchData();
         fetchingData;
     }
 }
 
-async function fetchData(){
+async function fetchData() {
     fetchingData = true;
-    let index = pokemons.length +1
+    let index = pokemons.length + 1
     for (let i = 0; i < 45; i++) {
         let result = await fetch(URL + index);
-        index ++;
+        index++;
         resultAsJson = await result.json();
         rawPokemons.push(resultAsJson);
     }
@@ -31,11 +31,11 @@ async function fetchData(){
     fetchingData = false;
 };
 
-function init(){
+function init() {
     renderCard();
 }
 
-function saveDatatLocal(){
+function saveDatatLocal() {
     for (let i = 0; i < rawPokemons.length; i++) {
         const result = rawPokemons[i];
         const name = result.names[5].name;
@@ -51,7 +51,7 @@ function saveDatatLocal(){
     }
     renderCard();
 }
-function renderCard(){
+function renderCard() {
     let canvas = document.getElementById('canvas');
     canvas.innerHTML = '';
     for (let i = 0; i < pokemons.length; i++) {
@@ -59,10 +59,10 @@ function renderCard(){
         let id = pokemon.id;
         let name = pokemon.name;
         let type = pokemon.type;
-        canvas.innerHTML += htmlCard(id,name,type);        
+        canvas.innerHTML += htmlCard(id, name, type);
     }
 }
 
-function singleView(id){
-    
+function singleView(id) {
+
 }
