@@ -6,7 +6,7 @@ let fetchingData;
 fetchData();
 window.addEventListener("scroll", checkScrollToBottom);
 
-// TODO: Einzelansciht 
+// TODO: Einzelansicht 
 function checkScrollToBottom() {
     let clientHeight = document.documentElement.clientHeight;
     let scrollHeight = document.documentElement.scrollHeight;
