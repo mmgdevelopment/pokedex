@@ -11,7 +11,7 @@ function checkScrollToBottom() {
     let clientHeight = document.documentElement.clientHeight;
     let scrollHeight = document.documentElement.scrollHeight;
     let scrollY = window.scrollY;
-    if ((Math.floor(scrollY + 450)) >= (scrollHeight - clientHeight) && fetchingData == false) {
+    if ((Math.floor(scrollY + 50)) >= (scrollHeight - clientHeight) && fetchingData == false) {
         fetchData();
         fetchingData;
     }
@@ -41,16 +41,15 @@ function saveDatatLocal() {
         const name = result.names[5].name;
         const id = result.id;
         const type = result.color.name;
-        pokemons.push(
-            {
-                id: id,
-                name: name,
-                type: type
-            }
-        )
+        pokemons.push({
+            id: id,
+            name: name,
+            type: type
+        })
     }
     renderCard();
 }
+
 function renderCard() {
     let canvas = document.getElementById('canvas');
     canvas.innerHTML = '';

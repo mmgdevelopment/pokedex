@@ -1,8 +1,8 @@
 function htmlCard(id, name, type) {
-    return /*html*/`
+    return /*html*/ `
     <div onclick="singleView(id)" id="${id}" class="card ${type}">
             <h2>${name}</h2>
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png" alt="">          
+            <img class="pokemon-image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg" alt="">          
     </div>
     `;
 }
