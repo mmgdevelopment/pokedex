@@ -6,7 +6,6 @@ let fetchingData;
 fetchData();
 window.addEventListener("scroll", checkScrollToBottom);
 
-// TODO: Einzelansicht 
 function checkScrollToBottom() {
     let clientHeight = document.documentElement.clientHeight;
     let scrollHeight = document.documentElement.scrollHeight;
@@ -38,13 +37,29 @@ function init() {
 function saveDatatLocal() {
     for (let i = 0; i < rawPokemons.length; i++) {
         const result = rawPokemons[i];
-        const name = result.names[5].name;
+        const names = result.names;
+        let pokemonName;
+        names.forEach(name => {
+            if (name.language.name == 'de') {
+                pokemonName = name.name;
+            }
+        });
+
         const id = result.id;
         const type = result.color.name;
+        const descriptions = result.flavor_text_entries;
+        let description_text;
+        for (let i = 0; i < descriptions.length; i++) {
+            const description = descriptions[i];
+            if (description.language.name == 'de') {
+                description_text = description.flavor_text;
+            }
+        }
         pokemons.push({
             id: id,
-            name: name,
-            type: type
+            name: pokemonName,
+            type: type,
+            description: description_text
         })
     }
     renderCard();
@@ -63,10 +78,12 @@ function renderCard() {
 }
 
 function singleView(id) {
+    const pokemon = pokemons[id - 1];
     let fullscreen = document.getElementById('fullscreen');
     fullscreen.style.display = 'flex';
-    const name = pokemons[id - 1].name;
-    fullscreen.innerHTML = singleViewCard(id, name);
+    const name = pokemon.name;
+    const description = pokemon.description
+    fullscreen.innerHTML = singleViewCard(id, name, description);
 }
 
 function closeFullscreen() {

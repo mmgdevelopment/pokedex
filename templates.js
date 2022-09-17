@@ -7,12 +7,13 @@ function htmlCard(id, name, type) {
     `;
 }
 
-function singleViewCard(id, name) {
+function singleViewCard(id, name, description) {
     return /*html*/ `
     <div class="fullscreencard">
         <div id="close" onclick="closeFullscreen()">X</div>
         <h2>${name}</h2>
         <img class="pokemon-image"src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg" alt="">
+        <span style="white-space: pre-line">${description}</span>
     </div>
     
     `
