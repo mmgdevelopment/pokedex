@@ -46,6 +46,9 @@ header {
     border: 2px solid transparent;
     opacity: 0.9;
     border-radius: 35px;
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    transition: all ease-in-out 125ms;
 }
 
 .fullscreencard {
@@ -80,13 +83,14 @@ header {
 
 #close {
     position: absolute;
-    right: 35px;
+    right: 15px;
+    top: 15px;
     cursor: pointer;
 }
 
 .card:hover {
-    border: 2px solid black;
     transform: scale(1.075);
+    transition: all ease-in-out 125ms;
 }
 
 .red {

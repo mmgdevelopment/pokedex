@@ -19,8 +19,8 @@ function checkScrollToBottom() {
 }
 
 async function fetchData() {
-    rawPokemons = [];
-    rawPokemonSpecies = [];
+    //rawPokemons = [];
+    //rawPokemonSpecies = [];
     fetchingData = true;
     let index = pokemons.length + 1;
     let counter = 10;
@@ -82,12 +82,9 @@ async function saveDatatLocal() {
         const experience = rawPokemon.base_experience;
 
 
-        const moves = rawPokemon.moves;
+        let moves = rawPokemon.moves;
+        moves.splice(5);
 
-        // for (let i = 0; i < 5; i++) {
-        //     const url = moves[i].move.url;
-        //     rawMoves.push(await fetchMoves(url));
-        // }
 
 
         pokemons.push({
@@ -98,7 +95,7 @@ async function saveDatatLocal() {
             weight: weight,
             height: height,
             experience: experience,
-            moves: rawMoves
+            moves: moves
         })
         rawMoves = [];
     }
@@ -126,6 +123,7 @@ function renderCard() {
 }
 
 function singleView(id) {
+    document.body.style.overflow = 'hidden';
     const pokemon = pokemons[id - 1];
     let fullscreen = document.getElementById('fullscreen');
     fullscreen.style.display = 'flex';
@@ -134,10 +132,22 @@ function singleView(id) {
     const weight = pokemon.weight;
     const height = pokemon.height;
     const experience = pokemon.experience;
-    fullscreen.innerHTML = singleViewCard(id, name, description, weight, height, experience);
+    const type = pokemon.type;
+    fullscreen.innerHTML = singleViewCard(id, name, description, weight, height, experience, type);
+    let movesContainer = document.getElementById('moves');
+    for (let i = 0; i < pokemon.moves.length; i++) {
+        const move = pokemon.moves[i].move;
+        let text = move.name;
+        movesContainer.innerHTML += `
+            <li>${text}</li>
+        `
+
+    }
 }
 
 function closeFullscreen() {
     let fullscreen = document.getElementById('fullscreen');
     fullscreen.style.display = 'none';
+    document.body.style.overflow = 'auto';
+
 }
