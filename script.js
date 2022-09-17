@@ -1,5 +1,6 @@
-const URL = 'https://pokeapi.co/api/v2/pokemon-species/';
+const pokemon_URL = 'https://pokeapi.co/api/v2/pokemon/';
 let pokemons = [];
+let rawPokemonSpecies = [];
 let rawPokemons = [];
 let fetchingData;
 
@@ -18,16 +19,33 @@ function checkScrollToBottom() {
 
 async function fetchData() {
     fetchingData = true;
-    let index = pokemons.length + 1
-    for (let i = 0; i < 10; i++) {
-        let result = await fetch(URL + index);
-        index++;
-        resultAsJson = await result.json();
-        rawPokemons.push(resultAsJson);
-    }
+    let index = pokemons.length + 1;
+    let counter = 10;
+    await fetchPokemon(counter, index);
+    await fetchSpecies(counter);
     saveDatatLocal();
     rawPokemons = [];
+    rawPokemonSpecies = [];
     fetchingData = false;
+};
+
+async function fetchPokemon(counter, index) {
+    for (let i = 0; i < counter; i++) {
+        let result = await fetch(pokemon_URL + index);
+        index++;
+        let resultAsJson = await result.json();
+        rawPokemons.push(resultAsJson);
+    };
+};
+
+async function fetchSpecies(counter) {
+    for (let i = 0; i < counter; i++) {
+        const url = rawPokemons[i].species.url;
+        let result = await fetch(url);
+        let resultAsJson = await result.json();
+        rawPokemonSpecies.push(resultAsJson);
+
+    };
 };
 
 function init() {
@@ -36,8 +54,9 @@ function init() {
 
 function saveDatatLocal() {
     for (let i = 0; i < rawPokemons.length; i++) {
-        const result = rawPokemons[i];
-        const names = result.names;
+        const rawPokemon = rawPokemonSpecies[i];
+        const rawSpecies = rawPokemonSpecies[i];
+        const names = rawSpecies.names;
         let pokemonName;
         names.forEach(name => {
             if (name.language.name == 'de') {
@@ -45,9 +64,10 @@ function saveDatatLocal() {
             }
         });
 
-        const id = result.id;
-        const type = result.color.name;
-        const descriptions = result.flavor_text_entries;
+        const id = rawSpecies.id;
+
+        const type = rawSpecies.color.name;
+        const descriptions = rawSpecies.flavor_text_entries;
         let description_text;
         for (let i = 0; i < descriptions.length; i++) {
             const description = descriptions[i];
@@ -62,6 +82,8 @@ function saveDatatLocal() {
             description: description_text
         })
     }
+
+
     renderCard();
 }
 
