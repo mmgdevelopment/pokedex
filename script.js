@@ -20,7 +20,7 @@ function checkScrollToBottom() {
 async function fetchData() {
     fetchingData = true;
     let index = pokemons.length + 1
-    for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < 10; i++) {
         let result = await fetch(URL + index);
         index++;
         resultAsJson = await result.json();
@@ -63,5 +63,13 @@ function renderCard() {
 }
 
 function singleView(id) {
+    let fullscreen = document.getElementById('fullscreen');
+    fullscreen.style.display = 'flex';
+    const name = pokemons[id - 1].name;
+    fullscreen.innerHTML = singleViewCard(id, name);
+}
 
+function closeFullscreen() {
+    let fullscreen = document.getElementById('fullscreen');
+    fullscreen.style.display = 'none';
 }

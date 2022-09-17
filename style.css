@@ -48,9 +48,39 @@ header {
     border-radius: 35px;
 }
 
+.fullscreencard {
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    padding: 20px;
+    align-items: center;
+    margin: 10px;
+    border-radius: 35px;
+    background-color: beige;
+    position: relative;
+}
+
 .pokemon-image {
     width: 150px;
     height: 150px;
+}
+
+#fullscreen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+#close {
+    position: absolute;
+    right: 35px;
 }
 
 .card:hover {
