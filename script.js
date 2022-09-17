@@ -2,6 +2,7 @@ const pokemon_URL = 'https://pokeapi.co/api/v2/pokemon/';
 let pokemons = [];
 let rawPokemonSpecies = [];
 let rawPokemons = [];
+let rawMoves = [];
 let fetchingData;
 
 fetchData();
@@ -18,14 +19,15 @@ function checkScrollToBottom() {
 }
 
 async function fetchData() {
+    rawPokemons = [];
+    rawPokemonSpecies = [];
     fetchingData = true;
     let index = pokemons.length + 1;
     let counter = 10;
     await fetchPokemon(counter, index);
     await fetchSpecies(counter);
     saveDatatLocal();
-    rawPokemons = [];
-    rawPokemonSpecies = [];
+
     fetchingData = false;
 };
 
@@ -52,9 +54,9 @@ function init() {
     renderCard();
 }
 
-function saveDatatLocal() {
+async function saveDatatLocal() {
     for (let i = 0; i < rawPokemons.length; i++) {
-        const rawPokemon = rawPokemonSpecies[i];
+        const rawPokemon = rawPokemons[i];
         const rawSpecies = rawPokemonSpecies[i];
         const names = rawSpecies.names;
         let pokemonName;
@@ -75,16 +77,40 @@ function saveDatatLocal() {
                 description_text = description.flavor_text;
             }
         }
+        const height = rawPokemon.height;
+        const weight = rawPokemon.weight;
+        const experience = rawPokemon.base_experience;
+
+
+        const moves = rawPokemon.moves;
+
+        // for (let i = 0; i < 5; i++) {
+        //     const url = moves[i].move.url;
+        //     rawMoves.push(await fetchMoves(url));
+        // }
+
+
         pokemons.push({
             id: id,
             name: pokemonName,
             type: type,
-            description: description_text
+            description: description_text,
+            weight: weight,
+            height: height,
+            experience: experience,
+            moves: rawMoves
         })
+        rawMoves = [];
     }
 
 
     renderCard();
+}
+
+async function fetchMoves(url) {
+    let result = await fetch(url);
+    let resultAsJson = await result.json();
+    return resultAsJson;
 }
 
 function renderCard() {
@@ -105,7 +131,10 @@ function singleView(id) {
     fullscreen.style.display = 'flex';
     const name = pokemon.name;
     const description = pokemon.description
-    fullscreen.innerHTML = singleViewCard(id, name, description);
+    const weight = pokemon.weight;
+    const height = pokemon.height;
+    const experience = pokemon.experience;
+    fullscreen.innerHTML = singleViewCard(id, name, description, weight, height, experience);
 }
 
 function closeFullscreen() {
