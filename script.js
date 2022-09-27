@@ -19,8 +19,8 @@ function checkScrollToBottom() {
 }
 
 async function fetchData() {
-    //rawPokemons = [];
-    //rawPokemonSpecies = [];
+    rawPokemons = [];
+    rawPokemonSpecies = [];
     fetchingData = true;
     let index = pokemons.length + 1;
     let counter = 10;
