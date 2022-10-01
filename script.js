@@ -34,9 +34,19 @@ async function fetchData() {
 async function fetchPokemon(counter, index) {
     for (let i = 0; i < counter; i++) {
         let result = await fetch(pokemon_URL + index);
+        // console.log('response.type =', result.type);
+        // console.log('response.url =', result.url);
+        // console.log('response.userFinalURL =', result.useFinalURL);
+        // console.log('response.status =', result.status);
+        // console.log('response.ok =', result.ok);
+        // console.log('response.statusText =', result.statusText);
+        // console.log('response.headers =', result.headers);
+        // console.log('response.body =', result.body);
+        console.log('response.body =', result.blob);
         index++;
         let resultAsJson = await result.json();
         rawPokemons.push(resultAsJson);
+
     };
 };
 
@@ -46,7 +56,6 @@ async function fetchSpecies(counter) {
         let result = await fetch(url);
         let resultAsJson = await result.json();
         rawPokemonSpecies.push(resultAsJson);
-
     };
 };
 
