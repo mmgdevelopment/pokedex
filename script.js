@@ -1,64 +1,47 @@
 const pokemon_URL = 'https://pokeapi.co/api/v2/pokemon/';
 let pokemons = [];
-let isFetchingData;
+let isFetchingData = true;
+const quantity = 10;
 
-loadPokemon();
-window.addEventListener("scroll", checkScrollToBottom);
+function init() {
+    loadPokemon();
+    window.addEventListener("scroll", loadPokemonByScrollingDown);
+}
 
-function checkScrollToBottom() {
+function loadPokemonByScrollingDown() {
     let clientHeight = document.documentElement.clientHeight;
     let scrollHeight = document.documentElement.scrollHeight;
     let scrollY = window.scrollY;
     if ((Math.floor(scrollY + 50)) >= (scrollHeight - clientHeight) && isFetchingData == false) {
         loadPokemon();
-        isFetchingData;
     }
 }
 
 async function loadPokemon() {
     isFetchingData = true;
-    let index = pokemons.length + 1;
-    let counter = 10;
-
-    await fetchingData(counter, index);
-    // await fetchPokemon(counter, index);
-    // await fetchSpecies(counter);
-    // saveDatatLocal();
-
+    let startLoadingFrom = pokemons.length + 1;
+    await fetchingData(quantity, startLoadingFrom);
     isFetchingData = false;
 };
 
-async function fetchingData(counter, index) {
+async function fetchingData(quantity, startLoadingFrom) {
 
 
-    for (let i = 0; i < counter; i++) {
-        const result1 = await fetch(pokemon_URL + index);
-        index++;
-        const resultAsJson1 = await result1.json();
-        const rawPokemon = resultAsJson1;
+    for (let i = 0; i < quantity; i++) {
+        let result = await fetch(pokemon_URL + startLoadingFrom);
+        startLoadingFrom++;
+        let resultAsJson = await result.json();
+        const rawPokemon = resultAsJson;
 
         const url = rawPokemon.species.url;
-        const result2 = await fetch(url);
-        const resultAsJson2 = await result2.json();
-        const rawPokemonSpecies = resultAsJson2;
+        result = await fetch(url);
+        resultAsJson = await result.json();
+        const rawPokemonSpecies = resultAsJson;
 
         saveDatatLocal(rawPokemon, rawPokemonSpecies);
 
     };
 };
-
-// async function fetchSpecies(counter) {
-//     for (let i = 0; i < counter; i++) {
-//         const url = rawPokemons[i].species.url;
-//         let result = await fetch(url);
-//         let resultAsJson = await result.json();
-//         rawPokemonSpecies.push(resultAsJson);
-//     };
-// };
-
-function init() {
-    renderCard();
-}
 
 async function saveDatatLocal(rawPokemon, rawSpecies) {
 
