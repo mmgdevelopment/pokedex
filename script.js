@@ -97,10 +97,6 @@ function getDescription(descriptions) {
     return description_text;
 }
 
-
-
-
-
 async function fetchMoves(url) {
     let result = await fetch(url);
     let resultAsJson = await result.json();
