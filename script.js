@@ -49,7 +49,6 @@ async function fetchPokemonSpecies(rawPokemon) {
 }
 
 function saveDatatLocal(rawPokemon, rawSpecies) {
-
     const names = rawSpecies.names;
     const name = getName(names);
     const id = rawSpecies.id;
@@ -61,7 +60,6 @@ function saveDatatLocal(rawPokemon, rawSpecies) {
     const experience = rawPokemon.base_experience;
     let moves = rawPokemon.moves;
     moves.splice(5);
-
     pokemons.push({
         id: id,
         name: name,
@@ -87,14 +85,14 @@ function getName(names) {
 }
 
 function getDescription(descriptions) {
-    let description_text;
+    let descriptionText;
     for (let i = 0; i < descriptions.length; i++) {
         const description = descriptions[i];
         if (description.language.name == 'de') {
-            description_text = description.flavor_text;
+            descriptionText = description.flavor_text;
         }
     }
-    return description_text;
+    return descriptionText;
 }
 
 async function fetchMoves(url) {
