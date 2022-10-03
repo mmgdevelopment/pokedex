@@ -13,6 +13,14 @@ function init() {
     window.addEventListener('keydown', (e) => { navigateInSingleView(e); });
 }
 
+function renderLoadingBall() {
+    if (isFetchingData) {
+        document.getElementById('loadingContainer').style.display = 'flex';
+    } else if (!isFetchingData) {
+        document.getElementById('loadingContainer').style.display = 'none';
+    }
+}
+
 function navigateInSingleView(e) {
     if (e.key == 'ArrowRight' && activeFullscreen) {
         nextPokemon(activeFullscreen);
@@ -29,16 +37,20 @@ function loadPokemonByScrollingDown() {
     let clientHeight = document.documentElement.clientHeight;
     let scrollHeight = document.documentElement.scrollHeight;
     let scrollY = window.scrollY;
+    console.log(isFetchingData);
     if ((Math.floor(scrollY + 50)) >= (scrollHeight - clientHeight) && isFetchingData == false) {
         loadPokemon();
+        console.log('loadPokemon');
     }
 }
 
 async function loadPokemon() {
     isFetchingData = true;
+    renderLoadingBall();
     let index = pokemons.length + 1;
     await fetchingData(quantity, index);
     isFetchingData = false;
+    renderLoadingBall();
 };
 
 async function fetchingData(quantity, index) {
@@ -190,6 +202,6 @@ function nextPokemon(id) {
 function findPokemon() {
     let searchFieldValue = document.getElementById('search').value;
     filteredPokemons = pokemons.filter(pokemon =>
-        pokemon.name.includes(searchFieldValue))
+        pokemon.name.toLowerCase().includes(searchFieldValue.toLowerCase()))
     renderCards(filteredPokemons);
 }
