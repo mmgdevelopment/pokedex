@@ -1,16 +1,27 @@
 const pokemon_URL = 'https://pokeapi.co/api/v2/pokemon/';
 let pokemons = [];
 let isFetchingData = true;
+let activeFullscreen = null;
 const quantity = 10;
 
 
 function init() {
-    let background = document.getElementById('fullscreen')
-
     loadPokemon();
     window.addEventListener("scroll", loadPokemonByScrollingDown);
-    window.addEventListener('dragstart', (e) => { e.preventDefault() });
+    window.addEventListener('dragstart', (e) => { e.preventDefault(); });
+    window.addEventListener('keydown', (e) => { navigateInSingleView(e); });
+}
 
+function navigateInSingleView(e) {
+    if (e.key == 'ArrowRight' && activeFullscreen) {
+        nextPokemon(activeFullscreen);
+    }
+    if (e.key == 'ArrowLeft' && activeFullscreen) {
+        previousPokemon(activeFullscreen);
+    }
+    if (e.key == 'Escape' && activeFullscreen) {
+        closeFullscreen();
+    }
 }
 
 function loadPokemonByScrollingDown() {
@@ -120,8 +131,8 @@ function renderCards() {
 
 function renderSingleView(id) {
     let fullscreencard = document.getElementById('fullscreencard');
-    openFullscreen();
     const pokemon = pokemons[id - 1];
+    openFullscreen(pokemon);
     fullscreencard.innerHTML = singleViewCard(pokemon);
     renderMoves(pokemon);
 }
@@ -139,12 +150,13 @@ function renderMoves(pokemon) {
     }
 }
 
-function openFullscreen() {
+function openFullscreen(pokemon) {
     let fullscreen = document.getElementById('fullscreen');
     fullscreen.style.display = 'flex';
     document.body.style.overflow = 'hidden';
     const fullscreencard = document.getElementById('fullscreencard');
     fullscreencard.style.display = "flex";
+    activeFullscreen = pokemon.id;
 }
 
 function closeFullscreen() {
@@ -153,7 +165,7 @@ function closeFullscreen() {
     document.body.style.overflow = 'auto';
     const fullscreencard = document.getElementById('fullscreencard');
     fullscreencard.style.display = "none";
-
+    activeFullscreen = null;
 }
 
 function previousPokemon(id) {
