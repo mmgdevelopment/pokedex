@@ -52,6 +52,7 @@ header {
 }
 
 .card {
+    user-select: none;
     display: flex;
     flex-direction: column;
     min-width: 250px;
@@ -69,6 +70,7 @@ header {
 #fullscreencard {
     position: fixed;
     display: flex;
+    cursor: unset;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

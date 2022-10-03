@@ -1,5 +1,6 @@
 const pokemon_URL = 'https://pokeapi.co/api/v2/pokemon/';
 let pokemons = [];
+let filteredPokemons = [];
 let isFetchingData = true;
 let activeFullscreen = null;
 const quantity = 10;
@@ -86,7 +87,7 @@ function saveDatatLocal(rawPokemon, rawSpecies) {
         experience: experience,
         moves: moves
     })
-    renderCards();
+    renderCards(pokemons);
 }
 
 
@@ -117,14 +118,14 @@ async function fetchMoves(url) {
     return resultAsJson;
 }
 
-function renderCards() {
+function renderCards(content) {
     let canvas = document.getElementById('canvas');
     canvas.innerHTML = '';
-    for (let i = 0; i < pokemons.length; i++) {
-        const pokemon = pokemons[i];
-        let id = pokemon.id;
-        let name = pokemon.name;
-        let type = pokemon.type;
+    for (let i = 0; i < content.length; i++) {
+        const pokemon = content[i];
+        const id = pokemon.id;
+        const name = pokemon.name;
+        const type = pokemon.type;
         canvas.innerHTML += htmlCard(id, name, type);
     }
 }
@@ -188,6 +189,7 @@ function nextPokemon(id) {
 
 function findPokemon() {
     let searchFieldValue = document.getElementById('search').value;
-    let filteredPokemons = pokemons.filter(pokemon => pokemon.name.includes(searchFieldValue))
-    console.log(filteredPokemons);
+    filteredPokemons = pokemons.filter(pokemon =>
+        pokemon.name.includes(searchFieldValue))
+    renderCards(filteredPokemons);
 }
