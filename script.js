@@ -146,3 +146,21 @@ function closeFullscreen() {
     document.body.style.overflow = 'auto';
 
 }
+
+function previousPokemon(id) {
+    if (id == 1) {
+        id = pokemons.length;
+    } else {
+        id--;
+    }
+    renderSingleView(id);
+}
+
+function nextPokemon(id) {
+    if (id == pokemons.length) {
+        id = 1;
+    } else {
+        id++;
+    }
+    renderSingleView(id);
+}

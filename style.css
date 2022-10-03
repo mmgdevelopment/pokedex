@@ -86,6 +86,21 @@ header {
     right: 15px;
     top: 15px;
     cursor: pointer;
+
+}
+
+#previous {
+    position: absolute;
+    left: 25px;
+    top: 85px;
+    cursor: pointer;
+}
+
+#next {
+    position: absolute;
+    right: 25px;
+    top: 85px;
+    cursor: pointer;
 }
 
 .card:hover {

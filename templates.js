@@ -14,6 +14,12 @@ function singleViewCard(pokemon) {
         <div id="close" onclick="closeFullscreen()">
             <img src="./src/close.svg">
         </div>
+        <div id="previous" onclick="previousPokemon(${id})">
+            <img src="./src/left.svg">
+        </div>
+        <div id="next" onclick="nextPokemon(${id})">
+            <img src="./src/right.svg">
+        </div>
         <h2>${pokemon.name}</h2>
         <img class="pokemon-image"src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg" alt="">
             <br>
