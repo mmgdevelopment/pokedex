@@ -185,3 +185,9 @@ function nextPokemon(id) {
     }
     renderSingleView(id);
 }
+
+function findPokemon() {
+    let searchFieldValue = document.getElementById('search').value;
+    let filteredPokemons = pokemons.filter(pokemon => pokemon.name.includes(searchFieldValue))
+    console.log(filteredPokemons);
+}
