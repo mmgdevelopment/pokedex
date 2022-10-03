@@ -3,9 +3,14 @@ let pokemons = [];
 let isFetchingData = true;
 const quantity = 10;
 
+
 function init() {
+    let background = document.getElementById('fullscreen')
+
     loadPokemon();
     window.addEventListener("scroll", loadPokemonByScrollingDown);
+    window.addEventListener('dragstart', (e) => { e.preventDefault() });
+
 }
 
 function loadPokemonByScrollingDown() {
@@ -114,10 +119,10 @@ function renderCards() {
 }
 
 function renderSingleView(id) {
-    let fullscreen = document.getElementById('fullscreen');
+    let fullscreencard = document.getElementById('fullscreencard');
     openFullscreen();
     const pokemon = pokemons[id - 1];
-    fullscreen.innerHTML = singleViewCard(pokemon);
+    fullscreencard.innerHTML = singleViewCard(pokemon);
     renderMoves(pokemon);
 }
 
@@ -138,12 +143,16 @@ function openFullscreen() {
     let fullscreen = document.getElementById('fullscreen');
     fullscreen.style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    const fullscreencard = document.getElementById('fullscreencard');
+    fullscreencard.style.display = "flex";
 }
 
 function closeFullscreen() {
     let fullscreen = document.getElementById('fullscreen');
     fullscreen.style.display = 'none';
     document.body.style.overflow = 'auto';
+    const fullscreencard = document.getElementById('fullscreencard');
+    fullscreencard.style.display = "none";
 
 }
 

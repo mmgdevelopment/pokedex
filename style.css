@@ -51,16 +51,28 @@ header {
     transition: all ease-in-out 125ms;
 }
 
-.fullscreencard {
+#fullscreencard {
+    position: absolute;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+
+}
+
+#container {
     display: flex;
     flex-direction: column;
-    min-width: 250px;
-    padding: 20px;
+    width: 350px;
+    height: 550px;
     align-items: center;
-    margin: 10px;
-    border-radius: 35px;
-    background-color: beige;
     position: relative;
+}
+
+#description {
+    white-space: pre-line;
+    max-width: 75%;
 }
 
 .pokemon-image {
@@ -81,26 +93,30 @@ header {
     z-index: 2;
 }
 
-#close {
+.icon {
     position: absolute;
+    cursor: pointer;
+    transition: all ease-in-out 125ms;
+}
+
+.icon:hover {
+    transform: scale(1.2);
+    transition: all ease-in-out 125ms;
+}
+
+#close {
     right: 15px;
     top: 15px;
-    cursor: pointer;
-
 }
 
 #previous {
-    position: absolute;
     left: 25px;
     top: 85px;
-    cursor: pointer;
 }
 
 #next {
-    position: absolute;
     right: 25px;
     top: 85px;
-    cursor: pointer;
 }
 
 .card:hover {

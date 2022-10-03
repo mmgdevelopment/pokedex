@@ -8,27 +8,27 @@ function htmlCard(id, name, type) {
 }
 
 function singleViewCard(pokemon) {
-    const id = pokemon.id;
+    document.getElementById('fullscreencard').className = "card";
+    document.getElementById('fullscreencard').classList.add(pokemon.type);
     return /*html*/ `
-    <div class="fullscreencard ${pokemon.type}">
-        <div id="close" onclick="closeFullscreen()">
+    <div id="container">
+        <div class="icon" id="close" onclick="closeFullscreen()">
             <img src="./src/close.svg">
         </div>
-        <div id="previous" onclick="previousPokemon(${id})">
+        <div class="icon" id="previous" onclick="previousPokemon(${pokemon.id})">
             <img src="./src/left.svg">
         </div>
-        <div id="next" onclick="nextPokemon(${id})">
+        <div class="icon" id="next" onclick="nextPokemon(${pokemon.id})">
             <img src="./src/right.svg">
         </div>
         <h2>${pokemon.name}</h2>
-        <img class="pokemon-image"src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg" alt="">
+        <img class="pokemon-image"src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg" alt="">
             <br>
-        <span style="white-space: pre-line">${pokemon.description}</span> <br>
+        <span id="description">${pokemon.description}</span> <br>
         <span>Gewicht: ${pokemon.weight * 0.1}kg</span>
         <span>Größe: ${pokemon.height * 10}cm</span>
         <span>Erfahrung: ${pokemon.experience}</span>
-        <ul id="moves">Attacken:</ul>       
-    </div>
-    
+        <ul id="moves">Attacken:</ul>   
+    </div>    
     `
 }
